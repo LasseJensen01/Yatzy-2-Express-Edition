@@ -1,0 +1,102 @@
+.container
+  h1 Super Yatzy 4 Gamere
+  .box
+    .dice
+      .diceClass.diceOpen
+        img#dice1(src="/img/sortbox.png")
+      .diceClass.diceOpen
+        img#dice2(src="/img/sortbox.png")
+      .diceClass.diceOpen
+        img#dice3(src="/img/sortbox.png")
+      .diceClass.diceOpen
+        img#dice4(src="/img/sortbox.png")
+      .diceClass.diceOpen
+        img#dice5(src="/img/sortbox.png")
+    .buttons
+      .rollCount
+        div
+          label.label Throw count:
+          input#throwcount.dinput(value="0" readonly)
+      .button
+        label Press button:
+        button#rollButton Roll
+  .box2
+    .gridforbox2
+      .Column.rightAlign
+        .griditem
+          label.label 1's
+        .griditem
+          label.label 2's
+        .griditem
+          label.label 3's
+        .griditem
+          label.label 4's
+        .griditem
+          label.label 5's
+        .griditem
+          label.label 6's
+        .griditem
+          label.label One Pair
+        .griditem
+          label.label Two pair
+        .griditem
+          label.label Three same
+        .griditem
+          label.label Four same
+        .griditem
+          label.label Full House
+        .griditem
+          label.label Small str
+        .griditem
+          label.label Large str
+        .griditem
+          label.label Chance
+        .griditem
+          label.label Yatzy!
+      .Column
+        .griditem
+          input.dinput#input1(readonly)
+        .griditem
+          input.dinput#input2(readonly)
+        .griditem
+          input.dinput#input3(readonly)
+        .griditem
+          input.dinput#input4(readonly)
+        .griditem
+          input.dinput#input5(readonly)
+        span.griditem
+          input.dinput#input6(readonly)
+        span.griditem
+          label.label Sum:
+        span.griditem
+          input#inputBonusSum.dinput(readonly)
+        span.griditem
+          label.label Bonus:
+        span.griditem
+          input#inputBonus.dinput(readonly)
+        .griditem
+          input.dinput#input1Pair(readonly)
+        .griditem
+          input.dinput#input2Pair(readonly)
+        .griditem
+          input.dinput#input3Same(readonly)
+        .griditem
+          input.dinput#input4Same(readonly)
+        .griditem
+          input.dinput#inputFullHouse(readonly)
+        .griditem
+          input.dinput#inputSmallStr(readonly)
+        .griditem
+          input.dinput#inputLargeStr(readonly)
+        span.griditem
+          input.dinput#inputChance(readonly)
+        span.griditem
+          label.label Sum:
+        span.griditem
+          input#inputSum.dinput(readonly)
+        span.griditem
+          label.label Total:
+        span.griditem
+          input#inputTotal.dinput(readonly)
+        .griditem
+          input.dinput#inputYatzy(readonly)
