@@ -1,0 +1,5 @@
+- Forside til spillet med et login
+- Kode for login
+- Liste over /endpoints
+- Fordeling af opgaver
+- 
