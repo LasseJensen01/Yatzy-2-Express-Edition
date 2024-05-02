@@ -19,7 +19,8 @@ app.use(session({
 app.set('view engine', 'pug')
 
 
-app.get('/', (req,res)=> {
+app.get('/main', (req,res)=> {
+  console.log('Forside');
     res.render('main')
 })
 
@@ -31,5 +32,7 @@ app.get('/register', (req,res)=> {
 app.use((req, res, next) => {
   res.status(404).send('You lost?')
 })
+
+export default app
 
 app.listen(6969, ()=> {console.log("Yatzy Time!")})
