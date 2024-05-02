@@ -23,4 +23,13 @@ app.get('/', (req,res)=> {
     res.render('main')
 })
 
+app.get('/register', (req,res)=> {
+  res.render('login')
+})
+
+//Midlleware der fanger ALLE requests
+app.use((req, res, next) => {
+  res.status(404).send('You lost?')
+})
+
 app.listen(6969, ()=> {console.log("Yatzy Time!")})
