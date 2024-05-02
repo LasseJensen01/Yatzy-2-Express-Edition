@@ -1,0 +1,31 @@
+.login{
+    width: 300px;
+    margin: 0 auto;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.login h1{
+    text-align: center;
+    
+}
+
+.login input[type="username"]{
+    width: 100%;
+    padding: 15px;
+    border: 1px;
+    border-color: grey;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.login button[type="submit"]{
+    width: 100%;
+    padding: 15px;
+    background-color: grey;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+

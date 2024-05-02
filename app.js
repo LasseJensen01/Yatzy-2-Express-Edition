@@ -23,4 +23,8 @@ app.get('/', (req,res)=> {
     res.render('main')
 })
 
+app.get('/login', (req, res) => {
+  res.render('login')
+})
+
 app.listen(6969, ()=> {console.log("Yatzy Time!")})
