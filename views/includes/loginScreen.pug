@@ -3,7 +3,7 @@ div(class="login")
     link(rel="stylesheet", href="css/login.css")
     script(src="/js/login.js" defer)
     label username 
-        input(type="username", name="username", placeholder="Username", requred) 
+        input(type="username", name="username", placeholder="Username", id="userName", requred) 
     button(type="submit", id="register") Join game
     button(type="submit", id="start") Start game
     table
@@ -18,3 +18,4 @@ div(class="login")
             td Server 3: 
             td 
                 a(href="https://youtu.be/dQw4w9WgXcQ?si=kQGgwYs7DDB-V67x") Special needs server
+    ul(id="playerList")
