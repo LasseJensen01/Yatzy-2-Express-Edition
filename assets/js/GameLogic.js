@@ -4,6 +4,9 @@ let arrayFrequency = Array.from({ length: 7 }).map(() => 0); // array for the nu
 
 let throwcount;
 
+class Player {
+    constructor(name, )
+}
 // Javascript Thinking Code
 // generates random number between 1 & 6
 function randomNumbahGenerator() { 
