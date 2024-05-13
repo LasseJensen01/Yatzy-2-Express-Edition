@@ -1,6 +1,2 @@
-- Forside til spillet med et login
 - Kode for login
-- Liste over /endpoints
-- Fordeling af opgaver
-- ButtonRoll skal laves om til en fetch?
-- Finde ud af om hvert field skal have deres egen metode kald eller om du kan lave en for dem alle
+- Lave inputLock om til en put metode og lave tilsvarende i gameLogic
