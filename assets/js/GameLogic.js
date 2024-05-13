@@ -5,7 +5,29 @@ let arrayFrequency = Array.from({ length: 7 }).map(() => 0); // array for the nu
 let throwcount;
 
 class Player {
-    constructor(name, )
+    constructor(name) {
+        this.name = name;
+        this.score = Array.from({ length: 15 });
+    }
+    // getters
+    get name() {
+        return this.name;
+    }
+    get score() {
+        return this.score;
+    }
+    // setters
+    set name(param) {
+        this.name = param;
+    }
+    /**
+     * Indsæt en score i playerens score array.
+     * @param {int} index index for score arrayen
+     * @param {int} value scoren for det givne index
+     */
+    setScore(index, value) {
+        this.score[int] = value;
+    }
 }
 // Javascript Thinking Code
 // generates random number between 1 & 6
