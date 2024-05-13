@@ -1,8 +1,7 @@
 class Player {
     constructor(name) {
         this.name = name;
-        this.score = Array.from({ length: 15 });
-        this.elementArray = new Array(15).fill(false);
+        this.score = new Array(15).fill(false);
     }
     // getters
     get name() {
