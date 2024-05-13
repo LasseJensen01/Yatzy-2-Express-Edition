@@ -12,16 +12,24 @@ let throwcount = document.getElementById('throwcount');
 throwcount.disabled
 
 // GUI functions
-function buttonRoll() {
+async function buttonRoll() {
     setBoolArray();
-    for (let index = 0; index < arrayNumbahs.length; index++) {
-        let element = arrayNumbahs[index];
+    const diceString = arrayBools.join(',');
+    const url = `http://localhost:6969/gameLogic/buttonRoll?dice=${diceString}`
+    const results = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache"
+    })
+    let data = await results.json();
+    const dice = data.dice;
+    const diceResults = data.results;
+
+    for (let index = 0; index < 5; index++) {
         if (!arrayBools[index]) {
-            let numbah = randomNumbahGenerator();
-            arrayNumbahs[index] = numbah;
             let idPic = "dice" + (index+1);
             let diceImg = document.getElementById(idPic);
-            diceImg.src = "/img/" + numbah + "hovedterning.png";
+            diceImg.src = "/img/" + dice[index] + "hovedterning.png";
         }
     }
     let count = parseInt(throwcount.value);
@@ -29,7 +37,7 @@ function buttonRoll() {
     if (throwcount.value == 3) {
         button.disabled = true;
     }
-    setResults();
+    setResults(diceResults);
 }
 
 // Resets throw count to 0 and enables button
@@ -86,8 +94,7 @@ function resetDice() {
 }
 
 
-function setResults(){
-    let results = getResults();
+function setResults(results){
     for (let i = 0; i < elementArray.length; i++){
         if (!elementArray[i].disabled){
             elementArray[i].setAttribute('value', results[i])

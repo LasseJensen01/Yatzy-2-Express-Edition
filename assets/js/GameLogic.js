@@ -1,3 +1,6 @@
+import {Router} from 'express'
+let gameLogic = Router()
+
 class Player {
     constructor(name) {
         this.name = name;
@@ -26,7 +29,6 @@ class Player {
 }
 // Arrays Serverside
 let arrayNumbahs = Array.from({ length: 5 }); // array for the dice 1-5
-let throwcount;
 const players = [] // players
 function addPlayer(player) {
     players.push(player);
@@ -34,11 +36,46 @@ function addPlayer(player) {
 
 // Javascript Thinking Code
 // generates random number between 1 & 6
+
 function randomNumbahGenerator() { 
     let numbah = Math.floor(Math.random() * 6) + 1;
     return numbah;
 }
 
+gameLogic.get('/buttonRoll/:dice', (req, res)=> {
+    const diceString = req.params.dice;
+    const dice = diceString.split(',');
+    for (let index = 0; index < arrayNumbahs.length; index++) {
+        let element = arrayNumbahs[index];
+        if (!dice[index]) {
+            let numbah = randomNumbahGenerator();
+            arrayNumbahs[index] = numbah;
+        }
+    }
+    const data = getResults();
+    res.json({dices: dice, results: data})
+})
+
+
+function buttonRoll() {
+    setBoolArray()
+    for (let index = 0; index < arrayNumbahs.length; index++) {
+        let element = arrayNumbahs[index];
+        if (!arrayBools[index]) {
+            let numbah = randomNumbahGenerator();
+            arrayNumbahs[index] = numbah;
+            let idPic = "dice" + (index+1);
+            let diceImg = document.getElementById(idPic);
+            diceImg.src = "/img/" + numbah + "hovedterning.png";
+        }
+    }
+    let count = parseInt(throwcount.value);
+    throwcount.value = ++count;
+    if (throwcount.value == 3) {
+        button.disabled = true;
+    }
+    setResults();
+}
 function frequency() { // generates an array symbolising the frequency of the numbers 1-6
     let frequency = Array.from({ length: 7 }).map(() => 0);
     for (let index = 0; index < arrayNumbahs.length; index++) {
@@ -191,3 +228,5 @@ function getResults() {
     results[14] = yatzyPoints();
     return results;
 }
+
+export default gameLogic

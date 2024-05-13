@@ -33,6 +33,6 @@ app.use((req, res, next) => {
   res.status(404).send('You lost?')
 })
 
-export default app
-
+import gameLogic from './assets/js/GameLogic'
+app.use('/gameLogic', gameLogic)
 app.listen(6969, ()=> {console.log("Yatzy Time!")})
