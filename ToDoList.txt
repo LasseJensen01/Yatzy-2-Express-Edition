@@ -1,2 +1,3 @@
 - Kode for login
 - Lave inputLock om til en put metode og lave tilsvarende i gameLogic
+- Test af metoder
