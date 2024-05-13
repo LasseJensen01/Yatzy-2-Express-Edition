@@ -177,3 +177,11 @@ function finished() { // omdan den her metode til en der tjekker, om en spiller 
         }, 0);
     }
 }
+function setResults(){
+    let results = getResults();
+    for (let i = 0; i < 15; i++){
+        if (!elementArray[i].disabled){
+            elementArray[i].setAttribute('value', results[i])
+        }
+    }
+}

@@ -1,13 +1,8 @@
-// Arrays Serverside
-let arrayNumbahs = Array.from({ length: 5 }); // array for the dice 1-5
-let arrayFrequency = Array.from({ length: 7 }).map(() => 0); // array for the numbers 1-6, showing their frequency, not using rn might delete later
-
-let throwcount;
-
 class Player {
     constructor(name) {
         this.name = name;
         this.score = Array.from({ length: 15 });
+        this.elementArray = new Array(15).fill(false);
     }
     // getters
     get name() {
@@ -27,8 +22,17 @@ class Player {
      */
     setScore(index, value) {
         this.score[int] = value;
+        this.elementArray[int] = true;
     }
 }
+// Arrays Serverside
+let arrayNumbahs = Array.from({ length: 5 }); // array for the dice 1-5
+let throwcount;
+const players = [] // players
+function addPlayer(player) {
+    players.push(player);
+}
+
 // Javascript Thinking Code
 // generates random number between 1 & 6
 function randomNumbahGenerator() { 
