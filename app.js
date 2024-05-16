@@ -5,6 +5,12 @@ app.use(express.static('assets'))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+app.use((req, res, next) => {
+  console.log(req.url);
+  next();
+})
+
+
 // Session opsætning
 // secret = salt
 //const session = require('express-session')
@@ -28,11 +34,14 @@ app.get('/register', (req,res)=> {
   res.render('login')
 })
 
+
+import gameLogic from './assets/js/GameLogic.js'
+app.use('/gameLogic', gameLogic)
+
+
 //Midlleware der fanger ALLE requests
 app.use((req, res, next) => {
   res.status(404).send('You lost?')
 })
-
-export default app
 
 app.listen(6969, ()=> {console.log("Yatzy Time!")})
