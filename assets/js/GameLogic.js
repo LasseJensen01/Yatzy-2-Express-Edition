@@ -1,3 +1,6 @@
+import {Router} from 'express'
+let gameLogic = Router()
+
 class Player {
     constructor(name) {
         this.name = name;
@@ -25,8 +28,7 @@ class Player {
     }
 }
 // Arrays Serverside
-let arrayNumbahs = Array.from({ length: 5 }); // array for the dice 1-5
-let throwcount;
+let arrayNumbahs = [1,1,1,1,1]; // array for the dice 1-5
 const players = [] // players
 function addPlayer(player) {
     players.push(player);
@@ -34,9 +36,49 @@ function addPlayer(player) {
 
 // Javascript Thinking Code
 // generates random number between 1 & 6
+
 function randomNumbahGenerator() { 
     let numbah = Math.floor(Math.random() * 6) + 1;
     return numbah;
+}
+
+gameLogic.get('/buttonRoll/:dice', (req, res)=> {
+    console.log("Virker");
+    let diceString = req.params.dice;
+    diceString = diceString.replace('dice=','')
+    const dice = diceString.split('-').map(value => value === 'true');
+    console.log(dice);
+    for (let index = 0; index < arrayNumbahs.length; index++) {
+        if (!dice[index]) {
+            arrayNumbahs[index] = randomNumbahGenerator();
+            console.log("womp");
+        }
+    }
+    const data = getResults();
+    console.log(data);
+    console.log(arrayNumbahs);
+    res.json({dices: arrayNumbahs, results: data})
+})
+
+
+function buttonRoll() {
+    setBoolArray()
+    for (let index = 0; index < arrayNumbahs.length; index++) {
+        let element = arrayNumbahs[index];
+        if (!arrayBools[index]) {
+            let numbah = randomNumbahGenerator();
+            arrayNumbahs[index] = numbah;
+            let idPic = "dice" + (index+1);
+            let diceImg = document.getElementById(idPic);
+            diceImg.src = "/img/" + numbah + "hovedterning.png";
+        }
+    }
+    let count = parseInt(throwcount.value);
+    throwcount.value = ++count;
+    if (throwcount.value == 3) {
+        button.disabled = true;
+    }
+    setResults();
 }
 
 function frequency() { // generates an array symbolising the frequency of the numbers 1-6
@@ -191,3 +233,5 @@ function getResults() {
     results[14] = yatzyPoints();
     return results;
 }
+
+export default gameLogic
