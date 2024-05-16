@@ -138,7 +138,6 @@ function inputLock() {
     element.classList.add("lockedInput");
     resetThrowAndButton();
     resetDice();
-    setResults();
     sumBonusTotalSet();
     totalSumInputs();
     finished();
@@ -183,13 +182,5 @@ function finished() { // omdan den her metode til en der tjekker, om en spiller 
             alert("Du er færdig! Start nyt spil?");
             location.reload();
         }, 0);
-    }
-}
-function setResults(){
-    let results = getResults();
-    for (let i = 0; i < 15; i++){
-        if (!elementArray[i].disabled){
-            elementArray[i].setAttribute('value', results[i])
-        }
     }
 }

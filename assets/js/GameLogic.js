@@ -234,4 +234,6 @@ function getResults() {
     return results;
 }
 
+
+
 export default gameLogic
