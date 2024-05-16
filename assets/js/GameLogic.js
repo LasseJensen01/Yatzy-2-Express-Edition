@@ -3,19 +3,19 @@ let gameLogic = Router()
 
 class Player {
     constructor(name) {
-        this.name = name;
-        this.score = new Array(15).fill(false);
+        this._name = name;
+        this._score = new Array(15).fill(false);
     }
     // getters
     get name() {
-        return this.name;
+        return this._name;
     }
     get score() {
-        return this.score;
+        return this._score;
     }
     // setters
     set name(param) {
-        this.name = param;
+        this._name = param;
     }
     /**
      * Indsæt en score i playerens score array.
@@ -43,7 +43,11 @@ function randomNumbahGenerator() {
 }
 
 gameLogic.post('/main', (req, res)=>{
-    console.log(req.body.users)
+    let users = req.body.users
+    console.log(users);
+    users.forEach((u) => {addPlayer(new Player(u))})
+    console.log("Done");
+    console.log(players);
 })
 
 gameLogic.get('/buttonRoll/:dice', (req, res)=> {
