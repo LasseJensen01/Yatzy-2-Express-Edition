@@ -12,7 +12,7 @@ import session from 'express-session' // Skal laves om til import ellers klager 
 app.use(session({
   secret: 'lick.ma.pussy.and.my.crack',
   saveUninitialized: true,
-    resave: true
+    resave: true  
 }))
 
 // Viewengine opsætning
@@ -24,6 +24,8 @@ app.get('/main', (req,res)=> {
     res.render('main')
 })
 
+
+
 app.get('/register', (req,res)=> {
   res.render('login')
 })
@@ -33,6 +35,6 @@ app.use((req, res, next) => {
   res.status(404).send('You lost?')
 })
 
-export default app
+
 
 app.listen(6969, ()=> {console.log("Yatzy Time!")})
