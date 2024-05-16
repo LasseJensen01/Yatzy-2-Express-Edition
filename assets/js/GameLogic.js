@@ -28,7 +28,7 @@ class Player {
     }
 }
 // Arrays Serverside
-let arrayNumbahs = Array.from({ length: 5 }); // array for the dice 1-5
+let arrayNumbahs = [1,1,1,1,1]; // array for the dice 1-5
 const players = [] // players
 function addPlayer(player) {
     players.push(player);
@@ -43,17 +43,21 @@ function randomNumbahGenerator() {
 }
 
 gameLogic.get('/buttonRoll/:dice', (req, res)=> {
-    const diceString = req.params.dice;
-    const dice = diceString.split(',');
+    console.log("Virker");
+    let diceString = req.params.dice;
+    diceString = diceString.replace('dice=','')
+    const dice = diceString.split('-').map(value => value === 'true');
+    console.log(dice);
     for (let index = 0; index < arrayNumbahs.length; index++) {
-        let element = arrayNumbahs[index];
         if (!dice[index]) {
-            let numbah = randomNumbahGenerator();
-            arrayNumbahs[index] = numbah;
+            arrayNumbahs[index] = randomNumbahGenerator();
+            console.log("womp");
         }
     }
     const data = getResults();
-    res.json({dices: dice, results: data})
+    console.log(data);
+    console.log(arrayNumbahs);
+    res.json({dices: arrayNumbahs, results: data})
 })
 
 
@@ -76,6 +80,7 @@ function buttonRoll() {
     }
     setResults();
 }
+
 function frequency() { // generates an array symbolising the frequency of the numbers 1-6
     let frequency = Array.from({ length: 7 }).map(() => 0);
     for (let index = 0; index < arrayNumbahs.length; index++) {

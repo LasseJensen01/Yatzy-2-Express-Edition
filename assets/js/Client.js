@@ -2,7 +2,7 @@
 // button
 let button = document.getElementById("rollButton");
 button.addEventListener('click', buttonRoll);
-
+console.log("Bobby");
 // arrays Clientside
 let arrayBools = [false, false, false, false, false]; // array for the boolean values
 let arrayBoolsTemp = [false, false, false, false, false]; // temporary array for the boolean values
@@ -14,17 +14,18 @@ throwcount.disabled
 // GUI functions
 async function buttonRoll() {
     setBoolArray();
-    const diceString = arrayBools.join(',');
-    const url = `http://localhost:6969/gameLogic/buttonRoll?dice=${diceString}`
+    const diceString = arrayBools.join('-');
+    const url = `http://localhost:6969/gameLogic/buttonRoll/dice=${diceString}`
     const results = await fetch(url, {
         method: "GET",
         mode: "cors",
         cache: "no-cache"
     })
     let data = await results.json();
-    const dice = data.dice;
+    console.log(data);
+    const dice = data.dices;
     const diceResults = data.results;
-
+    console.log("Clientside dice recieved: " + dice);
     for (let index = 0; index < 5; index++) {
         if (!arrayBools[index]) {
             let idPic = "dice" + (index+1);
