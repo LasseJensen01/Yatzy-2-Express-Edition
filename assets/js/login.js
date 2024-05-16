@@ -36,7 +36,7 @@ async function senduserData() {
     };
 
     try {
-        const response = await fetch('/main', options);
+        const response = await fetch('/gameLogic/main', options);
         if (!response.ok) {
             throw new Error('Failed to send user data');
         }

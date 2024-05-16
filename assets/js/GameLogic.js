@@ -42,6 +42,10 @@ function randomNumbahGenerator() {
     return numbah;
 }
 
+gameLogic.post('/main', (req, res)=>{
+    console.log(req.body.users)
+})
+
 gameLogic.get('/buttonRoll/:dice', (req, res)=> {
     console.log("Virker");
     let diceString = req.params.dice;
