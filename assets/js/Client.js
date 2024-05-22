@@ -24,8 +24,7 @@ class Player {
         this.elementArray[int] = true;
     }
 }
-const bob = new Player('Bob')
-console.log(bob);
+
 // Javascript GUI code
 // button
 let button = document.getElementById("rollButton");
@@ -168,8 +167,11 @@ async function inputLock() {
     })
     let data = await results.json();
     const players = data.players;
+    console.log(players);
+    const playerNames = players.map(player => player._name).join(", ");
     const currentPlayerID = data.currentPlayerID;
-    console.log("Players: " + players + ", current ID: " + currentPlayerID + ", current player: " + players[currentPlayerID]);
+    console.log(currentPlayerID);
+    console.log("Players: " + playerNames + ", current ID: " + currentPlayerID + ", current player: " + players[currentPlayerID]._name);
     if (parseInt(throwcount.value) > 0) {
         let idNr = this.id;
     let element = document.getElementById(idNr);
