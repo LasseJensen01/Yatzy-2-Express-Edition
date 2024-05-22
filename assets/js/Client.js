@@ -15,6 +15,7 @@ throwcount.disabled
 async function buttonRoll() {
     setBoolArray();
     const diceString = arrayBools.join('-');
+    console.log(diceString);
     const url = `http://localhost:6969/gameLogic/buttonRoll/dice=${diceString}`
     const results = await fetch(url, {
         method: "GET",
@@ -79,7 +80,7 @@ function setBoolArray() {
 
 // resets dice images to black
 function resetDice() { 
-    for (let index = 0; index < arrayNumbahs.length; index++) {
+    for (let index = 0; index < 5; index++) {
         let idPic = "dice" + (index+1);
         let diceImg = document.getElementById(idPic);
         let parNode = diceImg.parentNode;
@@ -183,13 +184,5 @@ function finished() { // omdan den her metode til en der tjekker, om en spiller 
             alert("Du er færdig! Start nyt spil?");
             location.reload();
         }, 0);
-    }
-}
-function setResults(){
-    let results = getResults();
-    for (let i = 0; i < 15; i++){
-        if (!elementArray[i].disabled){
-            elementArray[i].setAttribute('value', results[i])
-        }
     }
 }

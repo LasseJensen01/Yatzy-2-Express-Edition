@@ -5,3 +5,4 @@
 - Gem spillere i users.json
 - ???
 - Test af metoder
+- Fix Dice låsning bug

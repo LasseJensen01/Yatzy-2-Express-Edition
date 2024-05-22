@@ -35,7 +35,7 @@ app.get('/register', (req,res)=> {
 })
 
 
-import gameLogic from './assets/js/GameLogic.js'
+import gameLogic from './api/GameLogic.js'
 app.use('/gameLogic', gameLogic)
 
 
