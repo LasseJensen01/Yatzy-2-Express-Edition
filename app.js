@@ -2,7 +2,6 @@ import express from 'express'
 const app = express()
 
 app.use(express.static('assets'))
-app.use(express.static('api'))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 

@@ -1,4 +1,4 @@
-import { Player } from "../../shared/Player";
+import Player from "../../shared/Player";
 const bob = new Player('Bob')
 console.log(bob);
 // Javascript GUI code

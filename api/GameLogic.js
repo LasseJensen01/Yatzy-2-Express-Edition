@@ -1,4 +1,4 @@
-import { Player } from '../shared/Player';
+import Player from '../shared/Player';
 import {Router} from 'express'
 let gameLogic = Router()
 
