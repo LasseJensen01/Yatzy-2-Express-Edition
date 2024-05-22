@@ -5,4 +5,4 @@
 - Gem spillere i users.json
 - ???
 - Test af metoder
-- Fix Dice låsning bug
+- Lave et endpoint (/updatePlayer???) der opdaterer en players score og inkrementerer currentPLayerID

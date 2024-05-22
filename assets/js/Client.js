@@ -1,8 +1,34 @@
+class Player {
+    constructor(name) {
+        this._name = name;
+        this._score = new Array(15).fill(false);
+    }
+    // getters
+    get name() {
+        return this._name;
+    }
+    get score() {
+        return this._score;
+    }
+    // setters
+    set name(param) {
+        this._name = param;
+    }
+    /**
+     * Indsæt en score i playerens score array.
+     * @param {int} index index for score arrayen
+     * @param {int} value scoren for det givne index
+     */
+    setScore(index, value) {
+        this.score[int] = value;
+        this.elementArray[int] = true;
+    }
+}
+
 // Javascript GUI code
 // button
 let button = document.getElementById("rollButton");
 button.addEventListener('click', buttonRoll);
-console.log("Bobby");
 // arrays Clientside
 let arrayBools = [false, false, false, false, false]; // array for the boolean values
 let arrayBoolsTemp = [false, false, false, false, false]; // temporary array for the boolean values
@@ -132,7 +158,20 @@ function sumBonusTotalSet() {
 }
 
 // Inputmethods for locking an input
-function inputLock() {
+async function inputLock() {
+    const url = `http://localhost:6969/gameLogic/inputLock`
+    const results = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache"
+    })
+    let data = await results.json();
+    const players = data.players;
+    console.log(players);
+    const playerNames = players.map(player => player._name).join(", ");
+    const currentPlayerID = data.currentPlayerID;
+    console.log(currentPlayerID);
+    console.log("Players: " + playerNames + ", current ID: " + currentPlayerID + ", current player: " + players[currentPlayerID]._name);
     if (parseInt(throwcount.value) > 0) {
         let idNr = this.id;
     let element = document.getElementById(idNr);
@@ -140,7 +179,6 @@ function inputLock() {
     element.classList.add("lockedInput");
     resetThrowAndButton();
     resetDice();
-    //setResults();
     sumBonusTotalSet();
     totalSumInputs();
     finished();
