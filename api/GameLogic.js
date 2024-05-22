@@ -1,32 +1,7 @@
+import Player from '../Player.js';
 import {Router} from 'express'
 let gameLogic = Router()
 
-class Player {
-    constructor(name) {
-        this._name = name;
-        this._score = new Array(15).fill(false);
-    }
-    // getters
-    get name() {
-        return this._name;
-    }
-    get score() {
-        return this._score;
-    }
-    // setters
-    set name(param) {
-        this._name = param;
-    }
-    /**
-     * Indsæt en score i playerens score array.
-     * @param {int} index index for score arrayen
-     * @param {int} value scoren for det givne index
-     */
-    setScore(index, value) {
-        this.score[int] = value;
-        this.elementArray[int] = true;
-    }
-}
 // Arrays Serverside
 let arrayNumbahs = [1,1,1,1,1]; // array for the dice 1-5
 const players = [] // players
@@ -61,6 +36,10 @@ gameLogic.get('/buttonRoll/:dice', (req, res)=> {
     res.json({dices: arrayNumbahs, results: data})
 })
 
+gameLogic.get('/inputLock', (req, res)=> {
+    console.log("Inputlock ramt");
+    res.json({players: players, currentPlayerID: currentPlayerID});
+})
 
 // Javascript Thinking Code
 // generates random number between 1 & 6
