@@ -1,8 +1,10 @@
+import { Player } from "../../shared/Player";
+const bob = new Player('Bob')
+console.log(bob);
 // Javascript GUI code
 // button
 let button = document.getElementById("rollButton");
 button.addEventListener('click', buttonRoll);
-console.log("Bobby");
 // arrays Clientside
 let arrayBools = [false, false, false, false, false]; // array for the boolean values
 let arrayBoolsTemp = [false, false, false, false, false]; // temporary array for the boolean values
@@ -132,7 +134,17 @@ function sumBonusTotalSet() {
 }
 
 // Inputmethods for locking an input
-function inputLock() {
+async function inputLock() {
+    const url = `http://localhost:6969/gameLogic/inputLock`
+    const results = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache"
+    })
+    let data = await results.json();
+    const players = data.players;
+    const currentPlayerID = data.currentPlayerID;
+    console.log("Players: " + players + ", current ID: " + currentPlayerID + ", current player: " + players[currentPlayerID]);
     if (parseInt(throwcount.value) > 0) {
         let idNr = this.id;
     let element = document.getElementById(idNr);
@@ -140,7 +152,6 @@ function inputLock() {
     element.classList.add("lockedInput");
     resetThrowAndButton();
     resetDice();
-    //setResults();
     sumBonusTotalSet();
     totalSumInputs();
     finished();
