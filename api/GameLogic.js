@@ -1,5 +1,6 @@
 import Player from '../Player.js';
 import {Router} from 'express'
+import FileService from './FileService.js';
 let gameLogic = Router()
 
 // Arrays Serverside
@@ -9,6 +10,7 @@ const currentPlayerID = 0;
 function addPlayer(player) {
     players.push(player);
 }
+
 // Server Endpoints
 gameLogic.post('/main', (req, res)=> {
     let users = req.body.users
@@ -16,7 +18,14 @@ gameLogic.post('/main', (req, res)=> {
     users.forEach((u) => {addPlayer(new Player(u))})
     console.log("Done");
     console.log(players);
+    testWriteFile();
 })
+
+function testWriteFile(){
+    players.forEach(player => {
+        FileService.writeFile(player)
+    })
+}
 
 gameLogic.get('/buttonRoll/:dice', (req, res)=> {
     console.log("Virker");
