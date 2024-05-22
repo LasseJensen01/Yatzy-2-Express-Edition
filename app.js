@@ -18,7 +18,7 @@ import session from 'express-session' // Skal laves om til import ellers klager 
 app.use(session({
   secret: 'lick.ma.pussy.and.my.crack',
   saveUninitialized: true,
-    resave: true
+    resave: true  
 }))
 
 // Viewengine opsætning
@@ -29,6 +29,8 @@ app.get('/main', (req,res)=> {
   console.log('Forside');
     res.render('main')
 })
+
+
 
 app.get('/register', (req,res)=> {
   res.render('login')
