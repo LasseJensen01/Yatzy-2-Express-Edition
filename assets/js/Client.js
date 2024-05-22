@@ -89,7 +89,8 @@ function resetDice() {
             parNode.classList.add("diceOpen")
         }
         diceImg.src = "/img/sortbox.png";
-        arrayNumbahs[index] = 0;
+        console.log("Debug");
+        // arrayNumbahs[index] = 0;
     }
     arrayBoolsTemp = [false, false, false, false, false];
     setBoolArray();
@@ -139,7 +140,7 @@ function inputLock() {
     element.classList.add("lockedInput");
     resetThrowAndButton();
     resetDice();
-    setResults();
+    //setResults();
     sumBonusTotalSet();
     totalSumInputs();
     finished();
