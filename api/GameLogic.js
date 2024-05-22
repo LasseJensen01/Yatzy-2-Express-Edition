@@ -61,6 +61,10 @@ gameLogic.get('/buttonRoll/:dice', (req, res)=> {
     res.json({dices: arrayNumbahs, results: data})
 })
 
+gameLogic.get('/inputLock', (req, res)=> {
+    console.log("Inputlock ramt");
+    
+}
 
 // Javascript Thinking Code
 // generates random number between 1 & 6
