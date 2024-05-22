@@ -26,9 +26,9 @@ gameLogic.post('/main', async (req, res)=> {
     })
     console.log("Done");
     console.log(players);
-    testWriteFile()
+    //testWriteFile()
 })
-
+// Checks wether a player exists in the users.json and returns them if they do
 function checkPlayerExists(existingData = [{Player}], player){
     existingData.forEach(p => {
         if (p.name == player){
