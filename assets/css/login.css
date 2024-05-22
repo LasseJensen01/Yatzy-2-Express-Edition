@@ -50,5 +50,13 @@
     border-color: black;
     color: white;
 }
+.login label[id="errorLabel"]{
+    color: red;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
