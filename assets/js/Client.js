@@ -172,7 +172,7 @@ async function inputLock() {
         sumBonusTotalSet();
         totalSumInputs();
         console.log("Person who annoys you 6 letters?: N*gger")
-        if(finished()){
+        if(await finished()){
             gameOver()
         }
     }
