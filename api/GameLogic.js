@@ -36,7 +36,6 @@ gameLogic.post('/main', async (req, res)=> {
     })
     console.log("Done");
     console.log(players);
-    res.json(users)
     //testWriteFile()
 })
 // Checks wether a player exists in the users.json and returns them if they do

@@ -1,20 +1,24 @@
+import Player from "./Player.js"
 
-console.log("WHat about here bro?")
+console.log("are you here?")
 
-function fetchPlayers(){
- document.addEventListener('DOMContentLoaded', () => {
-    fetch('/main')
-    .then(response => response.json)
-    .then(users => {
-        console.log(users + "Do you even get here bro?")
-        const list = document.getElementById('ul')
-        users.forEach(u => {
-            const listItem = document.getElementById('li');
-            listItem.textContent = u;
-            list.appendChild(listItem)
-        });
+async function fillList(){
+    console.log("What about here?");
+    const url = `http://localhost:6969/gameLogic/getUsers`
+    const results = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache"
     })
-    .catch(error => console.error('Error sending Player data', error))
+    let data = await results.json();
+    console.log(data);   
+    let players = data.players;
+    let list = document.getElementById('ul')
+    players.forEach(p => {
+        console.log(p._name);
+        const listItem = document.createElement('li')
+        listItem.textContent = p._name;
+        list.appendChild(listItem);
     })
 }
-fetchPlayers()
+fillList();
