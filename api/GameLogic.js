@@ -100,7 +100,11 @@ gameLogic.put('/inputLock', (req, res)=> {
 })
 
 gameLogic.get('/gameOver', (req,res) => {
-    // File Service bliver kaldt flette Nye players og gemte, gemmer dem i array og sender til endscreen.js for visning
+    players.forEach(p => {
+        p.updateTotalScore();
+        p.updateAverageScore();
+        p.updateGamesPlayed();
+    })
     res.render('endscreen')
 
 })

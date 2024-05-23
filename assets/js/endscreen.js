@@ -24,9 +24,9 @@ const url = `http://localhost:6969/gameLogic/getUsers`
     playersArr.sort((a,b) => a.calcSum() - b.calcSum())
 
     playersArr.forEach(p => {
+        p.updateGamesPlayed();
         p.updateTotalScore();
         p.updateAverageScore();
-        p.updateGamesPlayed();
         let listItem = document.createElement('li')
         listItem.textContent = p._name + " - " + p.calcSum()
         list.appendChild(listItem)
