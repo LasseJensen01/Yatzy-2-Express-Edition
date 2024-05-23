@@ -10,6 +10,14 @@ function addPlayer(player) {
     players.push(player);
 }
 
+function nextPlayer() { // Sets the currentPlayerID to the next player in the array
+    if (currentPlayerID == players.length) {
+        currentPlayerID = 0;
+    } else {
+        currentPlayerID++;
+    }
+}
+
 
 // Server Endpoints
 gameLogic.post('/main', (req, res)=> {
@@ -48,6 +56,7 @@ gameLogic.put('/inputLock', (req, res)=> {
         isUpdateSuccessful = true;
     }
     console.log(players[currentPlayerID]._score[id]);
+    nextPlayer();
     if (isUpdateSuccessful) {
         res.status(200).send({ message: 'User updated successfully' });
     } else {
