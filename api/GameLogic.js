@@ -4,8 +4,8 @@ let gameLogic = Router()
 
 // Arrays Serverside
 let arrayNumbahs = [1,1,1,1,1]; // array for the dice 1-5
-const players = [] // players
-const currentPlayerID = 0;
+let players = [] // players
+let currentPlayerID = 0;
 function addPlayer(player) {
     players.push(player);
 }
