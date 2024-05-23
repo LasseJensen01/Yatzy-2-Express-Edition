@@ -1,4 +1,5 @@
 import Player from "./Player.js";
+import highlightCurrentPlayer from "./playerList.js";
 
 // Javascript GUI code
 // button
@@ -53,6 +54,7 @@ async function loadCurrentPlayer() {
     let data = await results.json();
     let score = data.players[data.currentID]._score;
     loadElementArray(score);
+    highlightCurrentPlayer();
 }
 
 function loadElementArray(scores) {

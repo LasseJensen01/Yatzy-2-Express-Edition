@@ -44,3 +44,5 @@ async function highlightCurrentPlayer(){
 }
 
 highlightCurrentPlayer();
+
+export default highlightCurrentPlayer;
