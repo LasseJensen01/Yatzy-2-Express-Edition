@@ -208,6 +208,37 @@ function sumBonusTotalSet() {
     inputSummer[0].value = sum;
 }
 
+// Inputmethods for locking an input
+async function inputLock() {
+    if (parseInt(throwcount.value) > 0) {
+        let idNr = this.id;
+        let element = document.getElementById(idNr);
+        element.disabled = true;
+        element.classList.add("lockedInput");
+        let arrayIndex = getArrayIndexOfElement(idNr);
+        const data = {index: arrayIndex, value: element.value};
+        const url = `http://localhost:6969/gameLogic/inputLock`
+        const results = await fetch(url, {
+            method: "PUT",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        let response = await results.json();
+        console.log(response);
+        resetThrowAndButton();
+        resetDice();
+        sumBonusTotalSet();
+        totalSumInputs();
+        console.log("Person who annoys you 6 letters?: N*gger")
+        if(await finished()){
+            gameOver()
+        }
+    }
+}
 
 elementArray.forEach(element => {
     element.addEventListener('click', inputLock)
@@ -227,18 +258,59 @@ function totalSumInputs(){
     inputSummer[3].setAttribute('value', total);
 }
 
-function finished() { // omdan den her metode til en der tjekker, om en spiller er færdig
-    let count = 0;
-    for (let i = 0; i < elementArray.length; i++){
-        if (elementArray[i].disabled){
-            count++;
+
+// omdan den her metode til en der tjekker, om en spiller er færdig
+async function finished() { 
+    console.log("veggies served")
+    const url = `http://localhost:6969/gameLogic/getUsers`
+    const response = await fetch(url,{
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+    })
+
+    let result = await response.json()
+
+    console.log(result)
+
+    let checker = arr => arr.every(v => v !== false)
+    let allDone = 0
+
+
+    result.players.forEach(Player => {
+        if(checker(Player._score)){
+            allDone = allDone + 1
         }
+    });
+    console.log(allDone)
+    console.log(result.players.length)
+
+    if(allDone == result.players.length){
+        console.log("Lookie ma, i finished all my veggies")
+        return true
+    } else {
+        console.log("Bad boy, your veggies ain't finished")
+        return false
     }
-    if (count == 15) {
-        setTimeout(function() {
-            // Show the alert after the changes have been made
-            alert("Du er færdig! Start nyt spil?");
-            location.reload();
-        }, 0);
+   
+}
+
+async function gameOver(){
+    const options = {
+        method: 'POST', 
+        headers: { // Correct typo here
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({noCap: true}) // Send userData as an object with key 'users'
+    };
+
+    try {
+        const response = await fetch('/gameLogic/gameOver', options);
+        if (!response.ok) {
+            throw new Error('Failed to send user data');
+        }
+        console.log('User data sent successfully');
+    } catch (error) {
+        console.error('Error sending user data:', error.message);
     }
 }

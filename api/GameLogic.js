@@ -82,7 +82,7 @@ gameLogic.put('/inputLock', (req, res)=> {
     const value = req.body.value;
     players[currentPlayerID].setScore(id, value);
     let isUpdateSuccessful = false;
-    if (players[currentPlayerID]._score[id] != false) {
+    if (players[currentPlayerID]._score[id] !== false) {
         isUpdateSuccessful = true;
     }
     console.log(players[currentPlayerID]._score[id]);
@@ -93,6 +93,10 @@ gameLogic.put('/inputLock', (req, res)=> {
         res.status(500).send({ message: 'Failed to update user' });
     }
     //res.json({players: players, currentPlayerID: currentPlayerID});
+})
+
+gameLogic.post('/gameOver', (req,res) => {
+    console.log("bruh");
 })
 
 // Javascript Thinking Code
