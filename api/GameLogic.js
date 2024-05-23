@@ -54,6 +54,10 @@ function testWriteFile(){
 })
 }
 
+gameLogic.get('/getUsers', (req, res)=> {
+    res.json({players: players})
+})
+
 gameLogic.get('/buttonRoll/:dice', (req, res)=> {
     let diceString = req.params.dice;
     diceString = diceString.replace('dice=','')
