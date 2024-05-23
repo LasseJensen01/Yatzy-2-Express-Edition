@@ -21,32 +21,44 @@ function nextPlayer() { // Sets the currentPlayerID to the next player in the ar
 
 // Checks wether a player exists in the users.json and returns them if they do
 function checkPlayerExists(existingData = [{Player}], player){
+    let retObj = false;
     existingData.forEach(p => {
-        if (p.name == player){
-            return p;
+        console.log(p._name +" "+player);
+        if (p._name == player){
+            console.log("Loading existing player: " + p._name);
+            retObj = p;
         }
     })
-    return false;
+    return retObj;
 }
 
 // Test for saving players as Objects
 async function PlayerWriteFile(){
-    players.forEach(player => {
-        FileService.writeFile(player)
-})
+    console.log("Rammer PlayerWriteFile");
+    console.log(players);
+    for (let i = 0; i < players.length; i++){
+        console.log("Writing " + players[i]._name + " to JSON");
+        FileService.writeFile(players[i])
+    }
+
+//     players.forEach(player => {
+//         FileService.writeFile(player)
+// })
 }
 
 // Server Endpoints
 gameLogic.post('/main', async (req, res)=> {
     let users = req.body.users
-    console.log(users);
+    console.log("Users fra /main: " + users);
     let existingData = await FileService.readFile()
     users.forEach((u) => {
+        console.log("user.forEach: " + u);
         let p = checkPlayerExists(existingData.players, u)
+        console.log("Returnede obj " + p);
         if (p == false){
            addPlayer(new Player(u)) 
         } else {
-            p.resetScore()
+            p._score = new Array(15).fill(false);
             addPlayer(p)
         } 
     })

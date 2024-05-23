@@ -27,14 +27,6 @@ class Player {
         this._score[index] = value;
         // this.elementArray[int] = true; //Dafuq is dis ?
     }
-    resetScore(){
-        this._score = new Array(15).fill(false);
-    }
-    calcSum(){
-        let sum = 0;
-        this._score.forEach(s => {sum += s})
-        return sum
-    }
 }
 
 export default Player;
