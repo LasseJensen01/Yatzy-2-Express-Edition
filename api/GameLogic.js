@@ -56,9 +56,13 @@ gameLogic.post('/main', async (req, res)=> {
         let p = checkPlayerExists(existingData.players, u)
         console.log("Returnede obj " + p);
         if (p == false){
+            let newPlayer = new Player(u)
+            newPlayer.setScore(1, 69)
+            console.log(newPlayer);
            addPlayer(new Player(u)) 
         } else {
-            p._score = new Array(15).fill(false);
+            p = Object.setPrototypeOf(p, Player.prototype);
+            p.resetScore()
             addPlayer(p)
         } 
     })
@@ -122,6 +126,11 @@ gameLogic.get('/gameOver', (req,res) => {
 })
 
 gameLogic.put('/savePlayers', (req, res) => {
+    players.forEach(p => {
+        p.updateTotalScore();
+        p.updateGamesPlayed();
+        p.updateAverageScore();
+    })
     PlayerWriteFile()
     res.status(200).send();
 })
