@@ -1,5 +1,7 @@
 import Player from "./Player.js";
 import highlightCurrentPlayer from "./playerList.js";
+//import endScreenStats from "./endscreen.js";
+import endScreenStats from "./endscreen.js";
 
 // Javascript GUI code
 // button
@@ -290,6 +292,9 @@ async function finished() {
 
     if(allDone == result.players.length){
         console.log("Lookie ma, i finished all my veggies")
+        //endScreenStats();
+        endScreenStats();
+        window.location.href = 'http://localhost:6969/endscreen'
         return true
     } else {
         console.log("Bad boy, your veggies ain't finished")
