@@ -200,18 +200,35 @@ function totalSumInputs(){
     inputSummer[3].setAttribute('value', total);
 }
 
-function finished() { // omdan den her metode til en der tjekker, om en spiller er færdig
-    let count = 0;
-    for (let i = 0; i < elementArray.length; i++){
-        if (elementArray[i].disabled){
-            count++;
-        }
+
+// omdan den her metode til en der tjekker, om en spiller er færdig
+async function finished() { 
+    console.log("veggies served")
+    const url = `http://localhost:6969/gameLogic/getUsers`
+    const response = await fetch(url,{
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+    })
+    let players = response.map(JSON.parse)
+    console.log(players)
+
+    let checker = arr => arr.every(v => v === true)
+
+    let playersDone = 0
+
+    players.forEach(player => {
+        if (checker(player._score)){
+            playersDone++
+        } 
+    });
+
+    if(playersDone == players.length){
+        console.log("Lookie ma, i finished all my veggies")
+        return true
+    } else {
+        console.log("Bad boy, your veggies ain't finished")
+        return false
     }
-    if (count == 15) {
-        setTimeout(function() {
-            // Show the alert after the changes have been made
-            alert("Du er færdig! Start nyt spil?");
-            location.reload();
-        }, 0);
-    }
+   
 }
