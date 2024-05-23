@@ -69,6 +69,8 @@ function loadElementArray(scores) {
             elementArray[i].disabled = false;
             elementArray[i].classList.remove("lockedInput");
         }
+        sumBonusTotalSet()
+        totalSumInputs()
     }
     console.log(elementArray.toString);
 }
@@ -202,7 +204,7 @@ function sumBonusTotalSet() {
     if (sum > 62) {
         sum += 50;
         inputSummer[1].value = 50;
-    }
+    } else inputSummer[1].value = 0;
     inputSummer[0].value = sum;
 }
 
