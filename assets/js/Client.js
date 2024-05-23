@@ -20,8 +20,7 @@ class Player {
      * @param {int} value scoren for det givne index
      */
     setScore(index, value) {
-        this.score[int] = value;
-        this.elementArray[int] = true;
+        this.score[index] = value;
     }
 }
 
