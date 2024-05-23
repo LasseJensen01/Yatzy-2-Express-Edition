@@ -1,8 +1,33 @@
+class Player {
+    constructor(name) {
+        this._name = name;
+        this._score = new Array(15).fill(false);
+    }
+    // getters
+    get name() {
+        return this._name;
+    }
+    get score() {
+        return this._score;
+    }
+    // setters
+    set name(param) {
+        this._name = param;
+    }
+    /**
+     * Indsæt en score i playerens score array.
+     * @param {int} index index for score arrayen
+     * @param {int} value scoren for det givne index
+     */
+    setScore(index, value) {
+        this.score[index] = value;
+    }
+}
+
 // Javascript GUI code
 // button
 let button = document.getElementById("rollButton");
 button.addEventListener('click', buttonRoll);
-console.log("Bobby");
 // arrays Clientside
 let arrayBools = [false, false, false, false, false]; // array for the boolean values
 let arrayBoolsTemp = [false, false, false, false, false]; // temporary array for the boolean values
@@ -15,6 +40,7 @@ throwcount.disabled
 async function buttonRoll() {
     setBoolArray();
     const diceString = arrayBools.join('-');
+    console.log(diceString);
     const url = `http://localhost:6969/gameLogic/buttonRoll/dice=${diceString}`
     const results = await fetch(url, {
         method: "GET",
@@ -79,7 +105,7 @@ function setBoolArray() {
 
 // resets dice images to black
 function resetDice() { 
-    for (let index = 0; index < arrayNumbahs.length; index++) {
+    for (let index = 0; index < 5; index++) {
         let idPic = "dice" + (index+1);
         let diceImg = document.getElementById(idPic);
         let parNode = diceImg.parentNode;
@@ -88,7 +114,8 @@ function resetDice() {
             parNode.classList.add("diceOpen")
         }
         diceImg.src = "/img/sortbox.png";
-        arrayNumbahs[index] = 0;
+        console.log("Debug");
+        // arrayNumbahs[index] = 0;
     }
     arrayBoolsTemp = [false, false, false, false, false];
     setBoolArray();
@@ -113,7 +140,21 @@ document.getElementById('inputChance'), document.getElementById('inputYatzy')]
 const inputSummer = [document.getElementById('inputBonusSum'), document.getElementById('inputBonus'),
                     document.getElementById('inputSum'), document.getElementById('inputTotal')] 
 
-
+// Returns the array index from elementArray with the given elementID. Returns null if id doesn't exist.
+function getArrayIndexOfElement(elementID) {
+    let arrayIndex = null;
+    let found = false;
+    let index = 0;
+    while (!found && index < 15) {
+        if (elementArray[index].id == elementID) {
+            arrayIndex = index;
+            found = true;
+        } else {
+            index++;
+        }
+    }
+    return arrayIndex;
+}
 // Sets the input sumBonus to the sum of the first 6 inputs
 function sumBonusTotalSet() {
     let sum = 0;
@@ -130,17 +171,31 @@ function sumBonusTotalSet() {
 }
 
 // Inputmethods for locking an input
-function inputLock() {
+async function inputLock() {
     if (parseInt(throwcount.value) > 0) {
         let idNr = this.id;
-    let element = document.getElementById(idNr);
-    element.disabled = true;
-    element.classList.add("lockedInput");
-    resetThrowAndButton();
-    resetDice();
-    sumBonusTotalSet();
-    totalSumInputs();
-    finished();
+        let element = document.getElementById(idNr);
+        element.disabled = true;
+        element.classList.add("lockedInput");
+        let arrayIndex = getArrayIndexOfElement(idNr);
+        const data = {index: arrayIndex, value: element.value};
+        const url = `http://localhost:6969/gameLogic/inputLock`
+        const results = await fetch(url, {
+            method: "PUT",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        let response = await results.json();
+        console.log(response);
+        resetThrowAndButton();
+        resetDice();
+        sumBonusTotalSet();
+        totalSumInputs();
+        finished();
     }
 }
 

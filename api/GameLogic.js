@@ -1,38 +1,69 @@
+import Player from '../Player.js';
 import {Router} from 'express'
 let gameLogic = Router()
 
-class Player {
-    constructor(name) {
-        this.name = name;
-        this.score = new Array(15).fill(false);
-    }
-    // getters
-    get name() {
-        return this.name;
-    }
-    get score() {
-        return this.score;
-    }
-    // setters
-    set name(param) {
-        this.name = param;
-    }
-    /**
-     * Indsæt en score i playerens score array.
-     * @param {int} index index for score arrayen
-     * @param {int} value scoren for det givne index
-     */
-    setScore(index, value) {
-        this.score[int] = value;
-        this.elementArray[int] = true;
-    }
-}
 // Arrays Serverside
 let arrayNumbahs = [1,1,1,1,1]; // array for the dice 1-5
-const players = [] // players
+let players = [] // players
+let currentPlayerID = 0;
 function addPlayer(player) {
     players.push(player);
 }
+
+function nextPlayer() { // Sets the currentPlayerID to the next player in the array
+    if (currentPlayerID == players.length) {
+        currentPlayerID = 0;
+    } else {
+        currentPlayerID++;
+    }
+}
+
+
+// Server Endpoints
+gameLogic.post('/main', (req, res)=> {
+    let users = req.body.users
+    console.log(users);
+    users.forEach((u) => {addPlayer(new Player(u))})
+    console.log("Done");
+    console.log(players);
+
+    res.json(users)
+})
+
+gameLogic.get('/buttonRoll/:dice', (req, res)=> {
+    let diceString = req.params.dice;
+    diceString = diceString.replace('dice=','')
+    const dice = diceString.split('-').map(value => value === 'true');
+    console.log(dice);
+    for (let index = 0; index < arrayNumbahs.length; index++) {
+        if (!dice[index]) {
+            arrayNumbahs[index] = randomNumbahGenerator();
+        }
+    }
+    const data = getResults();
+    //console.log(data);
+    //console.log(arrayNumbahs);
+    res.json({dices: arrayNumbahs, results: data})
+})
+
+gameLogic.put('/inputLock', (req, res)=> {
+    console.log("Inputlock ramt");
+    const id = req.body.index;
+    const value = req.body.value;
+    players[currentPlayerID].setScore(id, value);
+    let isUpdateSuccessful = false;
+    if (players[currentPlayerID]._score[id] != false) {
+        isUpdateSuccessful = true;
+    }
+    console.log(players[currentPlayerID]._score[id]);
+    nextPlayer();
+    if (isUpdateSuccessful) {
+        res.status(200).send({ message: 'User updated successfully' });
+    } else {
+        res.status(500).send({ message: 'Failed to update user' });
+    }
+    //res.json({players: players, currentPlayerID: currentPlayerID});
+})
 
 // Javascript Thinking Code
 // generates random number between 1 & 6
@@ -42,44 +73,7 @@ function randomNumbahGenerator() {
     return numbah;
 }
 
-gameLogic.get('/buttonRoll/:dice', (req, res)=> {
-    console.log("Virker");
-    let diceString = req.params.dice;
-    diceString = diceString.replace('dice=','')
-    const dice = diceString.split('-').map(value => value === 'true');
-    console.log(dice);
-    for (let index = 0; index < arrayNumbahs.length; index++) {
-        if (!dice[index]) {
-            arrayNumbahs[index] = randomNumbahGenerator();
-            console.log("womp");
-        }
-    }
-    const data = getResults();
-    console.log(data);
-    console.log(arrayNumbahs);
-    res.json({dices: arrayNumbahs, results: data})
-})
 
-
-function buttonRoll() {
-    setBoolArray()
-    for (let index = 0; index < arrayNumbahs.length; index++) {
-        let element = arrayNumbahs[index];
-        if (!arrayBools[index]) {
-            let numbah = randomNumbahGenerator();
-            arrayNumbahs[index] = numbah;
-            let idPic = "dice" + (index+1);
-            let diceImg = document.getElementById(idPic);
-            diceImg.src = "/img/" + numbah + "hovedterning.png";
-        }
-    }
-    let count = parseInt(throwcount.value);
-    throwcount.value = ++count;
-    if (throwcount.value == 3) {
-        button.disabled = true;
-    }
-    setResults();
-}
 
 function frequency() { // generates an array symbolising the frequency of the numbers 1-6
     let frequency = Array.from({ length: 7 }).map(() => 0);

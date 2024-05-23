@@ -18,7 +18,7 @@ import session from 'express-session' // Skal laves om til import ellers klager 
 app.use(session({
   secret: 'lick.ma.pussy.and.my.crack',
   saveUninitialized: true,
-    resave: true
+    resave: true  
 }))
 
 // Viewengine opsætning
@@ -30,12 +30,14 @@ app.get('/main', (req,res)=> {
     res.render('main')
 })
 
+
+
 app.get('/register', (req,res)=> {
   res.render('login')
 })
 
 
-import gameLogic from './assets/js/GameLogic.js'
+import gameLogic from './api/GameLogic.js'
 app.use('/gameLogic', gameLogic)
 
 

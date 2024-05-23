@@ -1,3 +1,8 @@
 - Kode for login
 - Lave inputLock om til en put metode og lave tilsvarende i gameLogic
+- Lave login færdig, gøre så spillere bliver sendt til gameLogic
+- Roter igennem spillere
+- Gem spillere i users.json
+- ???
 - Test af metoder
+- Lave et endpoint (/updatePlayer???) der opdaterer en players score og inkrementerer currentPLayerID
