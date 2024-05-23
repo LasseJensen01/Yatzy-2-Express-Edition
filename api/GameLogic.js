@@ -30,7 +30,7 @@ function checkPlayerExists(existingData = [{Player}], player){
 }
 
 // Test for saving players as Objects
-function testWriteFile(){
+function PlayerWriteFile(){
     players.forEach(player => {
         FileService.writeFile(player)
 })
@@ -45,7 +45,10 @@ gameLogic.post('/main', async (req, res)=> {
         let p = checkPlayerExists(existingData.players, u)
         if (p == false){
            addPlayer(new Player(u)) 
-        } else addPlayer(p)
+        } else {
+            p.resetScore()
+            addPlayer(p)
+        } 
     })
     console.log("Done");
     console.log(players);
@@ -95,8 +98,12 @@ gameLogic.put('/inputLock', (req, res)=> {
     //res.json({players: players, currentPlayerID: currentPlayerID});
 })
 
-gameLogic.post('/gameOver', (req,res) => {
+gameLogic.get('/gameOver', (req,res) => {
     console.log("bruh");
+    PlayerWriteFile();
+    // File Service bliver kaldt flette Nye players og gemte, gemmer dem i array og sender til endscreen.js for visning
+    res.redirect('/endscreen')
+
 })
 
 // Javascript Thinking Code

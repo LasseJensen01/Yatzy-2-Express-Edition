@@ -5,6 +5,7 @@ import highlightCurrentPlayer from "./playerList.js";
 // button
 let button = document.getElementById("rollButton");
 button.addEventListener('click', buttonRoll);
+console.log(button);
 // arrays Clientside
 let arrayBools = [false, false, false, false, false]; // array for the boolean values
 let arrayBoolsTemp = [false, false, false, false, false]; // temporary array for the boolean values
@@ -15,6 +16,7 @@ throwcount.disabled
 
 // GUI functions
 async function buttonRoll() {
+    console.log("rolling");
     setBoolArray();
     const diceString = arrayBools.join('-');
     console.log(diceString);
@@ -60,7 +62,7 @@ async function loadCurrentPlayer() {
 function loadElementArray(scores) {
     console.log(scores);
     for (let i in elementArray){
-        if (scores[i] != false) {
+        if (!(scores[i] === false)) {
             elementArray[i].setAttribute('value', scores[i]);
             elementArray[i].disabled = true;
             elementArray[i].classList.add("lockedInput");
@@ -102,6 +104,9 @@ async function inputLock() {
         totalSumInputs();
         finished();
         loadCurrentPlayer();
+        if(await finished()){
+            gameOver()
+        }
     }
 }
 
@@ -209,36 +214,34 @@ function sumBonusTotalSet() {
 }
 
 // Inputmethods for locking an input
-async function inputLock() {
-    if (parseInt(throwcount.value) > 0) {
-        let idNr = this.id;
-        let element = document.getElementById(idNr);
-        element.disabled = true;
-        element.classList.add("lockedInput");
-        let arrayIndex = getArrayIndexOfElement(idNr);
-        const data = {index: arrayIndex, value: element.value};
-        const url = `http://localhost:6969/gameLogic/inputLock`
-        const results = await fetch(url, {
-            method: "PUT",
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        })
-        let response = await results.json();
-        console.log(response);
-        resetThrowAndButton();
-        resetDice();
-        sumBonusTotalSet();
-        totalSumInputs();
-        console.log("Person who annoys you 6 letters?: N*gger")
-        if(await finished()){
-            gameOver()
-        }
-    }
-}
+// async function inputLock() {
+//     if (parseInt(throwcount.value) > 0) {
+//         let idNr = this.id;
+//         let element = document.getElementById(idNr);
+//         element.disabled = true;
+//         element.classList.add("lockedInput");
+//         let arrayIndex = getArrayIndexOfElement(idNr);
+//         const data = {index: arrayIndex, value: element.value};
+//         const url = `http://localhost:6969/gameLogic/inputLock`
+//         const results = await fetch(url, {
+//             method: "PUT",
+//             mode: "cors",
+//             cache: "no-cache",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify(data)
+//         })
+//         let response = await results.json();
+//         console.log(response);
+//         resetThrowAndButton();
+//         resetDice();
+//         sumBonusTotalSet();
+//         totalSumInputs();
+//         console.log("Person who annoys you 6 letters?: N*gger")
+        
+//     }
+// }
 
 elementArray.forEach(element => {
     element.addEventListener('click', inputLock)
@@ -297,11 +300,9 @@ async function finished() {
 
 async function gameOver(){
     const options = {
-        method: 'POST', 
-        headers: { // Correct typo here
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({noCap: true}) // Send userData as an object with key 'users'
+        method: 'GET', 
+        mode: "cors",
+        cache: "no-cache"
     };
 
     try {

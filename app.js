@@ -37,7 +37,9 @@ app.get('/register', (req,res)=> {
 })
 
 app.get('/endscreen', (req, res) => {
+  console.log("We dem bois");
   res.render('endscreen')
+  res.end()
 })
 
 
