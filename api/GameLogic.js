@@ -12,13 +12,28 @@ function addPlayer(player) {
 }
 
 function nextPlayer() { // Sets the currentPlayerID to the next player in the array
-    if (currentPlayerID == players.length -1) {
+    if (currentPlayerID == players.length) {
         currentPlayerID = 0;
     } else {
         currentPlayerID++;
     }
 }
 
+// Server Endpoints
+gameLogic.post('/main', async (req, res)=> {
+    let users = req.body.users
+    console.log(users);
+    let existingData = await FileService.readFile()
+    users.forEach((u) => {
+        let p = checkPlayerExists(existingData.players, u)
+        if (p == false){
+           addPlayer(new Player(u)) 
+        } else addPlayer(p)
+    })
+    console.log("Done");
+    console.log(players);
+    //testWriteFile()
+})
 // Checks wether a player exists in the users.json and returns them if they do
 function checkPlayerExists(existingData = [{Player}], player){
     existingData.forEach(p => {
@@ -56,6 +71,10 @@ gameLogic.get('/getUsers', (req, res)=> {
     res.json({players: players, currentID: currentPlayerID})
 })
 
+gameLogic.get('/getCurrentPlayer', (req, res) =>{
+    res.json(currentPlayerID)
+})
+
 gameLogic.get('/buttonRoll/:dice', (req, res)=> {
     let diceString = req.params.dice;
     diceString = diceString.replace('dice=','')
@@ -74,9 +93,8 @@ gameLogic.get('/buttonRoll/:dice', (req, res)=> {
 
 gameLogic.put('/inputLock', (req, res)=> {
     console.log("Inputlock ramt");
-    console.log(players);
-    let id = req.body.index;
-    let value = req.body.value;
+    const id = req.body.index;
+    const value = req.body.value;
     players[currentPlayerID].setScore(id, value);
     let isUpdateSuccessful = false;
     if (players[currentPlayerID]._score[id] != false) {

@@ -17,8 +17,30 @@ async function fillList(){
     players.forEach(p => {
         console.log(p._name);
         const listItem = document.createElement('li')
+        listItem.classList.add("highlight")
         listItem.textContent = p._name;
         list.appendChild(listItem);
     })
 }
 fillList();
+
+async function highlightCurrentPlayer(){
+    const list = document.getElementById('ul')
+    const url = `http://localhost:6969/gameLogic/getCurrentPlayer`
+    let result = await fetch (url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache"
+    })
+    let id = await result.json();
+    let childNodes = list.childNodes;
+    list.classList.remove("highlight")
+    childNodes.forEach(n => {
+        if(n.classList.contains("highlight")){
+            n.classList.remove("highlight")
+        }
+    })
+    childNodes[id].classList.add("highlight")
+}
+
+highlightCurrentPlayer();
