@@ -43,6 +43,64 @@ async function buttonRoll() {
     setResults(diceResults);
 }
 
+async function loadCurrentPlayer() {
+    const url = `http://localhost:6969/gameLogic/getUsers`
+    const results = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache"
+    })
+    let data = await results.json();
+    let score = data.players[data.currentID]._score
+    loadElementArray(score);
+}
+
+function loadElementArray(scores) {
+    console.log(scores);
+    for (let i in elementArray){
+        if (scores[i] != false) {
+            elementArray[i].setAttribute('value', scores[i]);
+            elementArray[i].disabled = true;
+            elementArray[i].classList.add("lockedInput");
+        } else {
+            elementArray[i].setAttribute('value', 0)
+            elementArray[i].disabled = false;
+            elementArray[i].classList.remove("lockedInput");
+        }
+    }
+    console.log(elementArray.toString);
+}
+
+// input method for sending a players choice to the server and updating their score
+async function inputLock() {
+    if (parseInt(throwcount.value) > 0) {
+        let idNr = this.id;
+        let element = document.getElementById(idNr);
+        element.disabled = true;
+        element.classList.add("lockedInput");
+        let arrayIndex = getArrayIndexOfElement(idNr);
+        const data = {index: arrayIndex, value: element.value};
+        const url = `http://localhost:6969/gameLogic/inputLock`
+        const results = await fetch(url, {
+            method: "PUT",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        let response = await results.json();
+        console.log(response);
+        resetThrowAndButton();
+        resetDice();
+        sumBonusTotalSet();
+        totalSumInputs();
+        finished();
+        loadCurrentPlayer();
+    }
+}
+
 // Resets throw count to 0 and enables button
 function resetThrowAndButton() {
     throwcount.value = 0;
@@ -114,7 +172,7 @@ document.getElementById('inputFullHouse'), document.getElementById('inputSmallSt
 document.getElementById('inputChance'), document.getElementById('inputYatzy')]
 
 const inputSummer = [document.getElementById('inputBonusSum'), document.getElementById('inputBonus'),
-                    document.getElementById('inputSum'), document.getElementById('inputTotal')] 
+document.getElementById('inputSum'), document.getElementById('inputTotal')] 
 
 // Returns the array index from elementArray with the given elementID. Returns null if id doesn't exist.
 function getArrayIndexOfElement(elementID) {
@@ -146,46 +204,11 @@ function sumBonusTotalSet() {
     inputSummer[0].value = sum;
 }
 
-// Inputmethods for locking an input
-async function inputLock() {
-    if (parseInt(throwcount.value) > 0) {
-        let idNr = this.id;
-        let element = document.getElementById(idNr);
-        element.disabled = true;
-        element.classList.add("lockedInput");
-        let arrayIndex = getArrayIndexOfElement(idNr);
-        const data = {index: arrayIndex, value: element.value};
-        const url = `http://localhost:6969/gameLogic/inputLock`
-        const results = await fetch(url, {
-            method: "PUT",
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        })
-        let response = await results.json();
-        console.log(response);
-        resetThrowAndButton();
-        resetDice();
-        sumBonusTotalSet();
-        totalSumInputs();
-        finished();
-    }
-}
 
 elementArray.forEach(element => {
     element.addEventListener('click', inputLock)
 });
 
-// slet den her hvis vi finder ud af at vi ikke bruger den
-/*function fillelementArray(){
-    for (let i of elementArray){
-        i.setAttribute('value', 1);
-    }
-    console.log(elementArray.toString);
-}*/
 
 // Sets the totalsum and total inputs (ty Simon)
 function totalSumInputs(){
