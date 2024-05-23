@@ -1,4 +1,4 @@
-import Player from '../Player.js';
+import Player from '../assets/js/Player.js';
 import {Router} from 'express'
 import FileService from './FileService.js';
 let gameLogic = Router()

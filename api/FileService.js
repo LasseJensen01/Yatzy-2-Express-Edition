@@ -1,5 +1,5 @@
 import fs from 'fs'
-import Player from '../Player.js';
+import Player from '../assets/js/Player.js';
 
 class FileService {
     static async readFile() {
