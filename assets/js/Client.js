@@ -2,7 +2,6 @@
 // button
 let button = document.getElementById("rollButton");
 button.addEventListener('click', buttonRoll);
-console.log("Bobby");
 // arrays Clientside
 let arrayBools = [false, false, false, false, false]; // array for the boolean values
 let arrayBoolsTemp = [false, false, false, false, false]; // temporary array for the boolean values
