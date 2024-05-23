@@ -4,13 +4,14 @@ let usernameInput = document.getElementById('userName')
 let userList = document.getElementById('playerList')
 let errorLable = document.getElementById('errorLabel')
 let tempUserArray = [];
+
 buttonNode.addEventListener('click', (event)=>{
     //TODO
     // Hvad der skal ske når vi klikker på register knap i login
-    console.log("Dakker");
     let name = usernameInput.value;
-    // Tjekker om player allerede er på listen
-    if (!tempUserArray.includes(name)){
+    if (!name){
+        errorLable.textContent = "Name has to have a value"
+    } else if (!tempUserArray.includes(name)){// Tjekker om player allerede er på listen
         tempUserArray.push(name)
         let listItem = document.createElement('li')
         listItem.textContent = name
