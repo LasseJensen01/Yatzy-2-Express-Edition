@@ -30,6 +30,10 @@ gameLogic.post('/main', (req, res)=> {
     res.json(users)
 })
 
+gameLogic.get('/getUsers', (req, res)=> {
+    res.json({players: players})
+})
+
 gameLogic.get('/buttonRoll/:dice', (req, res)=> {
     let diceString = req.params.dice;
     diceString = diceString.replace('dice=','')
