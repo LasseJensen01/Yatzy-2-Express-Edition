@@ -12,7 +12,7 @@ function addPlayer(player) {
 }
 
 function nextPlayer() { // Sets the currentPlayerID to the next player in the array
-    if (currentPlayerID == players.length) {
+    if (currentPlayerID == players.length -1) {
         currentPlayerID = 0;
     } else {
         currentPlayerID++;
@@ -77,8 +77,9 @@ gameLogic.get('/buttonRoll/:dice', (req, res)=> {
 
 gameLogic.put('/inputLock', (req, res)=> {
     console.log("Inputlock ramt");
-    const id = req.body.index;
-    const value = req.body.value;
+    console.log(players);
+    let id = req.body.index;
+    let value = req.body.value;
     players[currentPlayerID].setScore(id, value);
     let isUpdateSuccessful = false;
     if (players[currentPlayerID]._score[id] != false) {
