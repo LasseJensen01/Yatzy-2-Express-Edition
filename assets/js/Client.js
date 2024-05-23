@@ -230,7 +230,7 @@ async function finished() {
     console.log("veggies served")
     const url = `http://localhost:6969/gameLogic/getUsers`
     const response = await fetch(url,{
-        method: "get",
+        method: "GET",
         mode: "cors",
         cache: "no-cache",
     })
