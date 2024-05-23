@@ -26,16 +26,15 @@ gameLogic.post('/main', async (req, res)=> {
     let users = req.body.users
     console.log(users);
     let existingData = await FileService.readFile()
-    
     users.forEach((u) => {
         let p = checkPlayerExists(existingData.players, u)
         if (p == false){
            addPlayer(new Player(u)) 
         } else addPlayer(p)
-        
     })
     console.log("Done");
     console.log(players);
+    res.json(users)
     //testWriteFile()
 })
 // Checks wether a player exists in the users.json and returns them if they do
@@ -48,13 +47,10 @@ function checkPlayerExists(existingData = [{Player}], player){
     return false;
 }
 
-
 // Test for saving players as Objects
 function testWriteFile(){
     players.forEach(player => {
         FileService.writeFile(player)
-    
-    res.json(users)
 })
 }
 
