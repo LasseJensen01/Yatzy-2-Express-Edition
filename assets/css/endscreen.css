@@ -1,0 +1,41 @@
+body {
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    text-align: center; 
+    margin-top: 20px;  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: groove;
+    border-color: black;
+    height: 90vh; /* Ensures the body takes the full viewport height */
+    justify-content: center; /* Centers content vertically */
+}
+
+#header {
+    font-size: 72px;
+    background: -webkit-linear-gradient(#0c8426, yellow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 15px;
+}
+
+#reset {
+    display: block;
+    margin: 0 auto; /* Centers the button horizontally */
+    padding: 10px 20px; /* Corrects padding syntax */
+    font-size: 20px; /* Optional: Adjusts button text size */
+    cursor: pointer; /* Adds a pointer cursor on hover */
+    background-size: 100% auto;
+    background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
+}
+
+#reset:hover{
+    background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);
+
+}
+#scoreList{
+    border-style: groove;
+    border-radius: 3px;
+    width: 300px;
+    height: fit-content
+}

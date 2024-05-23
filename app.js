@@ -36,6 +36,10 @@ app.get('/register', (req,res)=> {
   res.render('login')
 })
 
+app.get('/endscreen', (req, res) => {
+  res.render('endscreen')
+})
+
 
 import gameLogic from './api/GameLogic.js'
 app.use('/gameLogic', gameLogic)
