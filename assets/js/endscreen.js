@@ -1,4 +1,3 @@
-window.location.href = 'http://localhost:6969/endscreen'
 let buttonNode = document.getElementById("reset")
 
 if(buttonNode){

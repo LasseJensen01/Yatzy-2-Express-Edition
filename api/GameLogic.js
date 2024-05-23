@@ -99,11 +99,14 @@ gameLogic.put('/inputLock', (req, res)=> {
 })
 
 gameLogic.get('/gameOver', (req,res) => {
-    console.log("bruh");
-    PlayerWriteFile();
     // File Service bliver kaldt flette Nye players og gemte, gemmer dem i array og sender til endscreen.js for visning
-    res.redirect('/endscreen')
+    res.render('endscreen')
 
+})
+
+gameLogic.put('/savePlayers', (req, res) => {
+    PlayerWriteFile()
+    res.status(200).send();
 })
 
 // Javascript Thinking Code

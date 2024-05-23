@@ -299,19 +299,8 @@ async function finished() {
 }
 
 async function gameOver(){
-    const options = {
-        method: 'GET', 
-        mode: "cors",
-        cache: "no-cache"
-    };
-
-    try {
-        const response = await fetch('/gameLogic/gameOver', options);
-        if (!response.ok) {
-            throw new Error('Failed to send user data');
-        }
-        console.log('User data sent successfully');
-    } catch (error) {
-        console.error('Error sending user data:', error.message);
-    }
+    fetch ('gameLogic/savePlayers', {
+        method: "PUT",
+    }).then((res) => {})
+    window.location.pathname = "/endscreen"
 }
