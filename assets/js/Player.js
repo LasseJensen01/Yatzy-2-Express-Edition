@@ -2,6 +2,10 @@ class Player {
     constructor(name) {
         this._name = name;
         this._score = new Array(15).fill(false);
+        this._numberOfGamesPlayed = 0;
+        this._totalScore = 0;
+        this._avgScore = 0;
+        this._numberOfRolls = 0;
     }
     // getters
     get name() {
@@ -20,7 +24,11 @@ class Player {
      * @param {int} value scoren for det givne index
      */
     setScore(index, value) {
-        this.score[index] = value;
+        this._score[index] = value;
+        // this.elementArray[int] = true; //Dafuq is dis ?
+    }
+    resetScore(){
+        this._score = new Array(15).fill(false);
     }
 }
 
