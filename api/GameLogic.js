@@ -19,7 +19,6 @@ gameLogic.post('/main', (req, res)=> {
 })
 
 gameLogic.get('/buttonRoll/:dice', (req, res)=> {
-    console.log("Virker");
     let diceString = req.params.dice;
     diceString = diceString.replace('dice=','')
     const dice = diceString.split('-').map(value => value === 'true');
@@ -27,18 +26,30 @@ gameLogic.get('/buttonRoll/:dice', (req, res)=> {
     for (let index = 0; index < arrayNumbahs.length; index++) {
         if (!dice[index]) {
             arrayNumbahs[index] = randomNumbahGenerator();
-            console.log("womp");
         }
     }
     const data = getResults();
-    console.log(data);
-    console.log(arrayNumbahs);
+    //console.log(data);
+    //console.log(arrayNumbahs);
     res.json({dices: arrayNumbahs, results: data})
 })
 
-gameLogic.get('/inputLock', (req, res)=> {
+gameLogic.put('/inputLock', (req, res)=> {
     console.log("Inputlock ramt");
-    res.json({players: players, currentPlayerID: currentPlayerID});
+    const id = req.body.index;
+    const value = req.body.value;
+    players[currentPlayerID].setScore(id, value);
+    let isUpdateSuccessful = false;
+    if (players[currentPlayerID]._score[id] != false) {
+        isUpdateSuccessful = true;
+    }
+    console.log(players[currentPlayerID]._score[id]);
+    if (isUpdateSuccessful) {
+        res.status(200).send({ message: 'User updated successfully' });
+    } else {
+        res.status(500).send({ message: 'Failed to update user' });
+    }
+    //res.json({players: players, currentPlayerID: currentPlayerID});
 })
 
 // Javascript Thinking Code
