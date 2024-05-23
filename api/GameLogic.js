@@ -11,7 +11,7 @@ function addPlayer(player) {
 }
 
 function nextPlayer() { // Sets the currentPlayerID to the next player in the array
-    if (currentPlayerID == players.length) {
+    if (currentPlayerID == players.length - 1) {
         currentPlayerID = 0;
     } else {
         currentPlayerID++;
