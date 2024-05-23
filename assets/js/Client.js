@@ -51,7 +51,7 @@ async function loadCurrentPlayer() {
         cache: "no-cache"
     })
     let data = await results.json();
-    let score = data.players[data.currentID]._score
+    let score = data.players[data.currentID]._score;
     loadElementArray(score);
 }
 
