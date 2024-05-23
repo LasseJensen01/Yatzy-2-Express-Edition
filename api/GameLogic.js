@@ -21,12 +21,15 @@ function nextPlayer() { // Sets the currentPlayerID to the next player in the ar
 
 // Checks wether a player exists in the users.json and returns them if they do
 function checkPlayerExists(existingData = [{Player}], player){
+    let retObj = false;
     existingData.forEach(p => {
-        if (p.name == player){
-            return p;
+        console.log(p._name +" "+player);
+        if (p._name == player){
+            console.log("Loading existing player: " + p._name);
+            retObj = p;
         }
     })
-    return false;
+    return retObj;
 }
 
 // Test for saving players as Objects
