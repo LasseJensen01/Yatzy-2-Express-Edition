@@ -19,21 +19,6 @@ function nextPlayer() { // Sets the currentPlayerID to the next player in the ar
     }
 }
 
-// Server Endpoints
-gameLogic.post('/main', async (req, res)=> {
-    let users = req.body.users
-    console.log(users);
-    let existingData = await FileService.readFile()
-    users.forEach((u) => {
-        let p = checkPlayerExists(existingData.players, u)
-        if (p == false){
-           addPlayer(new Player(u)) 
-        } else addPlayer(p)
-    })
-    console.log("Done");
-    console.log(players);
-    //testWriteFile()
-})
 // Checks wether a player exists in the users.json and returns them if they do
 function checkPlayerExists(existingData = [{Player}], player){
     existingData.forEach(p => {
