@@ -1,7 +1,6 @@
 import {Router} from 'express'
 let api = Router()
-
-import fs from 'fs'
+import FileService from './FileService.js'
 
 
 // Alle Restful api kald:
@@ -15,22 +14,22 @@ api.get('/', (req,res)=> {
 
 api.post('/user', async (req,res)=> {
     let userName = req.body.userName
-    await writeFile({user: userName})
+    await FileService.writeFile({user: userName})
     res.status(200).send({status: "OK"})
 })
 
 // Øvelse: flyt læs og skriv over i en serviceKlasse fil og importer og brug den her
-async function readFile() {
-    let fileContent = await fs.promises.readFile('./users.json', {encoding: 'utf-8'})
+// async function readFile() {
+//     let fileContent = await fs.promises.readFile('./users.json', {encoding: 'utf-8'})
 
-    return JSON.parse(fileContent)
-}
+//     return JSON.parse(fileContent)
+// }
 
-async function writeFile(data={}) {
-    let existingUsers = await readFile()
-    existingUsers.push(data)
-    existingUsers = JSON.stringify(existingUsers)
-    await fs.promises.writeFile('./users.json', existingUsers, {encoding: 'utf-8'})
-}
+// async function writeFile(data={}) {
+//     let existingUsers = await readFile()
+//     existingUsers.push(data)
+//     existingUsers = JSON.stringify(existingUsers)
+//     await fs.promises.writeFile('./users.json', existingUsers, {encoding: 'utf-8'})
+// }
 
 export default api

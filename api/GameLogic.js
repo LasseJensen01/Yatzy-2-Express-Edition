@@ -1,27 +1,63 @@
-import Player from '../Player.js';
+import Player from '../assets/js/Player.js';
 import {Router} from 'express'
+import FileService from './FileService.js';
 let gameLogic = Router()
 
 // Arrays Serverside
 let arrayNumbahs = [1,1,1,1,1]; // array for the dice 1-5
-const players = [] // players
-const currentPlayerID = 0;
+let players = [] // players
+let currentPlayerID = 0;
 function addPlayer(player) {
     players.push(player);
+}
+
+function nextPlayer() { // Sets the currentPlayerID to the next player in the array
+    if (currentPlayerID == players.length) {
+        currentPlayerID = 0;
+    } else {
+        currentPlayerID++;
+    }
 }
 
 
 
 
+
 // Server Endpoints
-gameLogic.post('/main', (req, res)=> {
+gameLogic.post('/main', async (req, res)=> {
     let users = req.body.users
     console.log(users);
-    users.forEach((u) => {addPlayer(new Player(u))})
+    let existingData = await FileService.readFile()
+    users.forEach((u) => {
+        let p = checkPlayerExists(existingData.players, u)
+        if (p == false){
+           addPlayer(new Player(u)) 
+        } else addPlayer(p)
+    })
     console.log("Done");
     console.log(players);
-
     res.json(users)
+    //testWriteFile()
+})
+// Checks wether a player exists in the users.json and returns them if they do
+function checkPlayerExists(existingData = [{Player}], player){
+    existingData.forEach(p => {
+        if (p.name == player){
+            return p;
+        }
+    })
+    return false;
+}
+
+// Test for saving players as Objects
+function testWriteFile(){
+    players.forEach(player => {
+        FileService.writeFile(player)
+})
+}
+
+gameLogic.get('/getUsers', (req, res)=> {
+    res.json({players: players})
 })
 
 gameLogic.get('/buttonRoll/:dice', (req, res)=> {
@@ -50,6 +86,7 @@ gameLogic.put('/inputLock', (req, res)=> {
         isUpdateSuccessful = true;
     }
     console.log(players[currentPlayerID]._score[id]);
+    nextPlayer();
     if (isUpdateSuccessful) {
         res.status(200).send({ message: 'User updated successfully' });
     } else {
