@@ -172,7 +172,9 @@ async function inputLock() {
         sumBonusTotalSet();
         totalSumInputs();
         console.log("Person who annoys you 6 letters?: N*gger")
-        finished();
+        if(finished()){
+            gameOver()
+        }
     }
 }
 
@@ -236,4 +238,24 @@ async function finished() {
         return false
     }
    
+}
+
+async function gameOver(){
+    const options = {
+        method: 'POST', 
+        headers: { // Correct typo here
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({noCap: true}) // Send userData as an object with key 'users'
+    };
+
+    try {
+        const response = await fetch('/gameLogic/gameOver', options);
+        if (!response.ok) {
+            throw new Error('Failed to send user data');
+        }
+        console.log('User data sent successfully');
+    } catch (error) {
+        console.error('Error sending user data:', error.message);
+    }
 }

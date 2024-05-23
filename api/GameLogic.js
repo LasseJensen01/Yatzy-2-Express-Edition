@@ -95,6 +95,10 @@ gameLogic.put('/inputLock', (req, res)=> {
     //res.json({players: players, currentPlayerID: currentPlayerID});
 })
 
+gameLogic.post('/gameOver', (req,res) => {
+    console.log("bruh");
+})
+
 // Javascript Thinking Code
 // generates random number between 1 & 6
 
