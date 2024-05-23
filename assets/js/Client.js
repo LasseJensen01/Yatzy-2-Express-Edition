@@ -235,6 +235,7 @@ async function finished() {
         cache: "no-cache",
     })
     let players = response.map(JSON.parse)
+    console.log(players)
 
     let checker = arr => arr.every(v => v === true)
 
