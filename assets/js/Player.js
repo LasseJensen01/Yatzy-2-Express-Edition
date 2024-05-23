@@ -19,7 +19,7 @@ class Player {
         this._name = param;
     }
     /**
-     * Indsæt en score i playerens score array.
+     * IndsÃ¦t en score i playerens score array.
      * @param {int} index index for score arrayen
      * @param {int} value scoren for det givne index
      */

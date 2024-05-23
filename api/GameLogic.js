@@ -34,21 +34,34 @@ function checkPlayerExists(existingData = [{Player}], player){
 
 // Test for saving players as Objects
 async function PlayerWriteFile(){
-    players.forEach(player => {
-        FileService.writeFile(player)
-})
+    console.log("Rammer PlayerWriteFile");
+    console.log(players);
+    for (let i = 0; i < players.length; i++){
+        console.log("Writing " + players[i]._name + " to JSON");
+        FileService.writeFile(players[i])
+    }
+
+//     players.forEach(player => {
+//         FileService.writeFile(player)
+// })
 }
 
 // Server Endpoints
 gameLogic.post('/main', async (req, res)=> {
     let users = req.body.users
-    console.log(users);
+    console.log("Users fra /main: " + users);
     let existingData = await FileService.readFile()
     users.forEach((u) => {
+        console.log("user.forEach: " + u);
         let p = checkPlayerExists(existingData.players, u)
+        console.log("Returnede obj " + p);
         if (p == false){
+            let newPlayer = new Player(u)
+            newPlayer.setScore(1, 69)
+            console.log(newPlayer);
            addPlayer(new Player(u)) 
         } else {
+            p = Object.setPrototypeOf(p, Player.prototype);
             p.resetScore()
             addPlayer(p)
         } 
@@ -113,6 +126,11 @@ gameLogic.get('/gameOver', (req,res) => {
 })
 
 gameLogic.put('/savePlayers', (req, res) => {
+    players.forEach(p => {
+        p.updateTotalScore();
+        p.updateGamesPlayed();
+        p.updateAverageScore();
+    })
     PlayerWriteFile()
     res.status(200).send();
 })
