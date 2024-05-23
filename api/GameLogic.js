@@ -74,6 +74,7 @@ gameLogic.get('/buttonRoll/:dice', (req, res)=> {
         }
     }
     const data = getResults();
+    players[currentPlayerID].updateNumberOfRolls();
     //console.log(data);
     //console.log(arrayNumbahs);
     res.json({dices: arrayNumbahs, results: data})
