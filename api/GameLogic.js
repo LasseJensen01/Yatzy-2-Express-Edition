@@ -30,7 +30,7 @@ function checkPlayerExists(existingData = [{Player}], player){
 }
 
 // Test for saving players as Objects
-function PlayerWriteFile(){
+async function PlayerWriteFile(){
     players.forEach(player => {
         FileService.writeFile(player)
 })
