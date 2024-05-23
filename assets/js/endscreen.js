@@ -1,3 +1,4 @@
+import Player from "./Player.js";
 let buttonNode = document.getElementById("reset")
 
 if(buttonNode){
@@ -14,11 +15,18 @@ const url = `http://localhost:6969/gameLogic/getUsers`
         cache: "no-cache"
     })
     let data = await results.json();
-    let playersArr = data.players
+    let playersArr = data.players.map(playerData => {
+        Object.setPrototypeOf(playerData, Player.prototype);
+        return playerData });
+
     let list = document.getElementById("scoreList")
+    console.log(playersArr);
     playersArr.sort((a,b) => a.calcSum() - b.calcSum())
 
     playersArr.forEach(p => {
+        p.updateGamesPlayed();
+        p.updateTotalScore();
+        p.updateAverageScore();
         let listItem = document.createElement('li')
         listItem.textContent = p._name + " - " + p.calcSum()
         list.appendChild(listItem)

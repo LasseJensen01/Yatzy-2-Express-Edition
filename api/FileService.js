@@ -21,10 +21,10 @@ class FileService {
         existingData.players.forEach(p => {
             if (p._name == player._name){
                 found = true
-                p._numberOfGamesPlayed++;
-                p._totalScore += player._totalScore
+                //p._numberOfGamesPlayed++;
+                /*p._totalScore += player._totalScore
                 p._avgScore = p._totalScore/p._numberOfGamesPlayed
-                p._numberOfRolls += player._numberOfRolls
+                p._numberOfRolls += player._numberOfRolls*/
             }
         });
         if (!found){

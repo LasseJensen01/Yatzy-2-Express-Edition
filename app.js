@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 //const session = require('express-session')
 import session from 'express-session' // Skal laves om til import ellers klager ES6 modulet
 app.use(session({
-  secret: 'lick.ma.pussy.and.my.crack',
+  secret: 'tomatosauce',
   saveUninitialized: true,
     resave: true  
 }))
