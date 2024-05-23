@@ -1,16 +1,21 @@
 import { response } from "express"
 import gameLogic from "../../api/GameLogic";
 
-document.addEventListener('DOMContentLoaded', () => {
+console.log("WHat about here bro?")
+
+const fetchPlayers = document.addEventListener('DOMContentLoaded', () => {
     fetch('/gameLogic')
     .then(response => response.json)
-    .then(players => {
+    .then(users => {
+        console.log(users + "Do you even get here bro?")
         const list = document.getElementById('ul')
-        players.array.forEach(p => {
+        users.array.forEach(u => {
             const listItem = document.getElementById('li');
-            listItem.textContent = p;
+            listItem.textContent = u;
             list.appendChild(listItem)
         });
     })
     .catch(error => console.error('Error sending Player data', error))
 })
+
+fetchPlayers();
