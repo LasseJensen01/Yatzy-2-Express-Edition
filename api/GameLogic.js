@@ -82,7 +82,7 @@ gameLogic.put('/inputLock', (req, res)=> {
     let value = req.body.value;
     players[currentPlayerID].setScore(id, value);
     let isUpdateSuccessful = false;
-    if (players[currentPlayerID]._score[id] != false) {
+    if (players[currentPlayerID]._score[id] !== false) {
         isUpdateSuccessful = true;
     }
     console.log(players[currentPlayerID]._score[id]);

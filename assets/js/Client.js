@@ -171,6 +171,7 @@ async function inputLock() {
         resetDice();
         sumBonusTotalSet();
         totalSumInputs();
+        console.log("Person who annoys you 6 letters?: N*gger")
         finished();
     }
 }
@@ -210,20 +211,24 @@ async function finished() {
         mode: "cors",
         cache: "no-cache",
     })
-    let players = response.map(JSON.parse)
-    console.log(players)
 
-    let checker = arr => arr.every(v => v === true)
+    let result = await response.json()
 
-    let playersDone = 0
+    console.log(result)
 
-    players.forEach(player => {
-        if (checker(player._score)){
-            playersDone++
-        } 
+    let checker = arr => arr.every(v => v !== false)
+    let allDone = 0
+
+
+    result.players.forEach(Player => {
+        if(checker(Player._score)){
+            allDone = allDone + 1
+        }
     });
+    console.log(allDone)
+    console.log(result.players.length)
 
-    if(playersDone == players.length){
+    if(allDone == result.players.length){
         console.log("Lookie ma, i finished all my veggies")
         return true
     } else {
